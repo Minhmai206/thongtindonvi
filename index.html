@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bảng thông tin nội bộ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f4f6;--card:#fff;--tx:#17202a;--mut:#697586;--pri:#a61b1b;--pri-dark:#791313;--onpri:#fff;--bd:#dde2e7;--dan:#b42318;--ok:#157347;--soft:#f7eded}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:15px/1.65 "Be Vietnam Pro",system-ui,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);background-image:radial-gradient(circle at 12% 8%,rgba(166,27,27,.035),transparent 18rem),linear-gradient(rgba(23,32,42,.018) 1px,transparent 1px);background-size:auto,100% 28px}
+[hidden]{display:none!important}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid rgba(185,28,28,.25);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:24px;padding-right:24px}
+header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5;box-shadow:0 3px 18px rgba(24,34,48,.04);backdrop-filter:blur(12px)}
+header .wrap{display:flex;align-items:center;gap:18px;min-height:72px}
+.brand{display:flex;align-items:center;gap:10px;flex:1 1 auto;min-width:210px}
+.brand-mark{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#bd2929,#7f1111);display:grid;place-items:center;color:#fff;font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:22px;font-weight:700;box-shadow:inset 0 0 0 4px rgba(255,255,255,.16),0 6px 16px rgba(166,27,27,.18);position:relative}
+.brand-mark:after{content:"";position:absolute;width:8px;height:8px;border:2px solid rgba(255,255,255,.7);border-radius:50%;right:-2px;bottom:1px;background:#a61b1b}
+.brand h1{font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:20px;line-height:1.05;margin:0;letter-spacing:-.5px}
+.brand small{display:block;font-family:"Be Vietnam Pro",sans-serif;color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:1.8px;margin-top:5px}
+nav{display:flex;align-items:center;gap:2px}
+nav button{border:0;background:none;padding:10px 12px;border-radius:6px;cursor:pointer;color:var(--mut);font-weight:600;position:relative}
+nav button.on{color:var(--pri)}
+nav button.on:after{content:"";position:absolute;left:12px;right:12px;bottom:2px;height:2px;background:var(--pri)}
+.who{font-size:12px;color:var(--mut);white-space:nowrap}
+main{padding:28px 0 70px}
+.btn{border:1px solid var(--bd);background:var(--card);padding:9px 15px;border-radius:5px;cursor:pointer;font-weight:600}
+.btn:hover{border-color:#bfc6ce}
+.btn.p{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.btn.p:hover{background:var(--pri-dark)}
+.btn.d{color:var(--dan)}
+.btn:disabled{opacity:.55;cursor:wait}
+.btn.s{padding:5px 10px;font-size:12px}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:22px;margin-bottom:20px;box-shadow:0 8px 30px rgba(24,34,48,.035)}
+label{display:block;font-weight:600;margin:14px 0 5px}
+input[type=text],input[type=email],input[type=password],input[type=url],input[type=search],textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:5px;background:#fff}
+input:focus,textarea:focus{border-color:var(--pri);outline:0}
+textarea{min-height:180px;resize:vertical}
+.hint{font-size:13px;color:var(--mut);margin:4px 0 0}
+.err{color:var(--dan);font-size:14px;min-height:20px;margin:8px 0 0}
+#login{max-width:420px;margin:10vh auto 0;animation:loginIn .55s ease-out}
+#login .box{position:relative;overflow:hidden;border-radius:10px;padding:32px}
+#login .box:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--pri),#d97777)}
+#login h1{font-family:"Be Vietnam Pro",Arial,sans-serif;margin-bottom:8px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:3px solid var(--tx);margin-bottom:16px;padding-bottom:9px}
+.section-head h2{font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:27px;margin:0;line-height:1.15;font-weight:700}
+.section-head .date{color:var(--mut);font-size:12px}
+.feed-tools{display:grid;grid-template-columns:1fr 220px;margin-bottom:18px}
+.feed-tools input{border:0;border-bottom:1px solid var(--bd);border-radius:0;padding:12px 42px 12px 2px;background:transparent;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid rgba(221,226,231,.8);border-radius:7px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;text-align:left;padding:0 0 18px;width:100%;box-shadow:0 8px 24px rgba(24,34,48,.055);animation:cardIn .45s ease-out backwards;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.card:nth-child(2){animation-delay:.05s}.card:nth-child(3){animation-delay:.1s}.card:nth-child(4){animation-delay:.15s}.card:nth-child(5){animation-delay:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(24,34,48,.11);border-color:#cbd2da}
+.card:hover h3{color:var(--pri)}
+.card img{width:100%;height:190px;object-fit:cover;display:block;background:#e8ebef;transition:filter .2s}
+.card:hover img{filter:brightness(.94);transform:scale(1.025)}
+.card img{transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .25s ease}
+.card .b{padding:13px 14px 0}
+.card h3{margin:0 0 7px;font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:18px;line-height:1.35;letter-spacing:-.3px;font-weight:700;transition:color .2s}
+.card.lead{grid-column:span 2;grid-row:span 2;position:relative;border-top:0}
+.card.lead img{height:390px}
+.card.lead .b{position:absolute;left:18px;right:18px;bottom:18px;padding:18px 20px;background:rgba(255,255,255,.96);border-left:3px solid var(--pri)}
+.card.lead h3{font-size:31px}
+.meta{font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.35px}
+.card p{margin:9px 0 0;color:var(--mut);font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.empty{text-align:center;color:var(--mut);padding:50px 10px}
+.row{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--bd);flex-wrap:wrap}
+.row:first-child{border-top:0}
+.row .t{flex:1 1 200px;min-width:0;overflow-wrap:anywhere}
+.tag{font-size:11px;padding:3px 8px;border-radius:99px;background:var(--soft);color:var(--pri);font-weight:600}
+.tag.off{background:transparent;border:1px solid var(--dan);color:var(--dan)}
+.bar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;width:0;background:var(--pri);transition:width .2s}
+#modal{position:fixed;inset:0;background:rgba(10,16,24,.78);z-index:20;overflow:auto;padding:24px 12px;backdrop-filter:blur(8px);animation:modalFade .2s ease-out}
+#modal .article{max-width:920px;margin:0 auto 40px;position:relative;border-radius:8px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.28);overflow:hidden;animation:articleIn .38s cubic-bezier(.2,.75,.2,1)}
+.article-progress{position:sticky;top:0;left:0;height:3px;width:100%;z-index:3;background:transparent}
+.article-progress i{display:block;height:100%;width:0;background:var(--pri);box-shadow:0 0 10px rgba(166,27,27,.35)}
+.article-head{max-width:760px;margin:0 auto;padding:44px 40px 26px}
+.article-kicker{display:inline-block;color:var(--pri);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;border-bottom:2px solid var(--pri);padding-bottom:5px;margin-bottom:16px}
+.article-head h2{margin:0 0 14px;font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:39px;line-height:1.22;letter-spacing:-1.1px;font-weight:700}
+.article-byline{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:12.5px;text-transform:uppercase;letter-spacing:.45px;border-top:1px solid var(--bd);padding-top:12px}
+.byline-avatar{width:34px;height:34px;border-radius:50%;background:#eee5e5;color:var(--pri);display:grid;place-items:center;font-family:"Be Vietnam Pro",Arial,sans-serif;font-weight:700}
+#modal img.hero{width:calc(100% - 80px);max-height:500px;height:420px;object-fit:cover;border-radius:3px;display:block;margin:0 auto 30px}
+.article-body{max-width:760px;margin:0 auto;padding:0 40px 42px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:32px}
+.article-copy{min-width:0}
+.content{overflow-wrap:anywhere;margin:0;font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:16px;line-height:1.95;color:#252d36}
+.content p{margin:0 0 1.35em}
+.article-files{align-self:start;border-top:3px solid var(--tx);padding-top:10px}
+.article-files h3{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;margin:0 0 8px}
+.article-files .row{padding:10px 0;border-top:1px solid var(--bd)}
+.article-files .row .t{flex-basis:100%;font-size:12.5px}
+.article-files .row .btn{width:100%}
+.x{position:absolute;right:18px;top:18px;z-index:5;border:1px solid var(--bd);background:rgba(255,255,255,.96);box-shadow:0 4px 14px rgba(24,34,48,.12)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#17212b;color:#fff;padding:11px 18px;border-radius:5px;z-index:30;max-width:90vw;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.18);animation:toastIn .25s ease-out}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#17212b;color:#fff;padding:11px 18px;border-radius:5px;z-index:30;max-width:90vw;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.prev{max-width:240px;max-height:140px;border-radius:5px;margin-top:8px;display:block}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+@keyframes articleIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes loginIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+@media(max-width:800px){
+  .wrap{padding-left:16px;padding-right:16px}
+  header .wrap{min-height:64px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand out" "nav nav";align-items:center;gap:4px 8px;padding-top:8px;padding-bottom:8px}
+  .brand{grid-area:brand;min-width:0;flex-basis:auto}
+  .brand h1{font-size:18px}
+  nav{grid-area:nav;width:100%;overflow-x:auto;order:unset}
+  nav button{padding:7px 10px}
+  #out{grid-area:out;white-space:nowrap;justify-self:end}
+  .who{display:none}
+  main{padding-top:20px}
+  .grid{grid-template-columns:1fr 1fr}
+  .card.lead{grid-column:span 2}
+  .card.lead img{height:340px}
+  .card.lead h3{font-size:26px}
+  .article-head{padding:38px 28px 22px}
+  .article-head h2{font-size:34px}
+  #modal img.hero{width:calc(100% - 56px);height:360px}
+  .article-body{padding:0 28px 36px;grid-template-columns:1fr}
+  .article-files{margin-top:6px}
+}
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .card.lead{grid-column:auto;grid-row:auto}
+  .card.lead img{height:240px}
+  .card.lead .b{position:static;margin:0;border-left:0;padding:14px 14px 0}
+  .card.lead h3{font-size:23px}
+  .card img{height:220px}
+  .feed-tools{grid-template-columns:1fr}
+  .section-head h2{font-size:23px}
+  #modal{padding:8px}
+  .article-head{padding:38px 18px 18px}
+  .article-head h2{font-size:27px;letter-spacing:-.6px}
+  #modal img.hero{width:100%;height:260px;border-radius:0;margin-bottom:20px}
+  .article-body{padding:0 18px 30px}
+  .content{font-size:15.5px;line-height:1.85}
+  .article-byline{align-items:flex-start}
+  .x{right:10px;top:10px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<section id="login" class="wrap" hidden>
+  <div class="box">
+    <h1>Bảng thông tin nội bộ</h1>
+    <p class="hint">Đăng nhập bằng tài khoản do quản trị viên cấp.</p>
+    <form id="lf">
+      <label for="le">Tài khoản (email hoặc tên đăng nhập)</label>
+      <input id="le" type="text" autocomplete="username" required>
+      <label for="lp">Mật khẩu</label>
+      <input id="lp" type="password" autocomplete="current-password" required>
+      <p class="err" id="lerr" role="alert"></p>
+      <button class="btn p" id="lb" style="width:100%">Đăng nhập</button>
+    </form>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <h1>Bảng thông tin<small>Cổng tin nội bộ</small></h1>
+      </div>
+      <nav>
+        <button data-v="feed" class="on">Bản tin</button>
+        <button data-v="post" data-admin>Quản lý bản tin</button>
+        <button data-v="users" data-admin>Tài khoản</button>
+      </nav>
+      <span class="who" id="who"></span>
+      <button class="btn s" id="out">Đăng xuất</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="v-feed">
+      <div class="section-head">
+        <h2>Tin mới nhất</h2>
+        <span class="date" id="feed-date"></span>
+      </div>
+      <div class="feed-tools">
+        <input id="q" type="search" placeholder="Tìm trong bản tin…" aria-label="Tìm bản tin">
+      </div>
+      <div id="list" class="grid"></div>
+      <p id="none" class="empty" hidden>Chưa có bản tin nào.</p>
+    </section>
+
+    <section id="v-post" hidden>
+      <form class="box" id="pf">
+        <h2 id="pft" style="margin:0 0 4px;font-size:18px">Đăng bản tin mới</h2>
+        <label for="pt">Tiêu đề</label>
+        <input id="pt" type="text" maxlength="200" required>
+        <label for="pi">Ảnh tiêu đề (dán đường link ảnh)</label>
+        <input id="pi" type="url" placeholder="https://…">
+        <p class="hint">Hỗ trợ link ảnh trực tiếp hoặc link chia sẻ Google Drive (đặt chế độ “Bất kỳ ai có đường liên kết”).</p>
+        <img id="pprev" class="prev" alt="" hidden>
+        <label for="pc">Nội dung</label>
+        <textarea id="pc" maxlength="20000" required></textarea>
+        <label for="pfile">Tài liệu đính kèm (mọi định dạng, tối đa <span id="maxmb"></span> MB mỗi tệp)</label>
+        <input id="pfile" type="file" multiple>
+        <div id="oldfiles"></div>
+        <div class="bar" id="bar" hidden><i></i></div>
+        <p class="err" id="perr" role="alert"></p>
+        <button class="btn p" id="psave">Đăng bản tin</button>
+        <button class="btn" type="button" id="pcancel" hidden>Hủy sửa</button>
+      </form>
+      <div class="box"><h2 style="margin:0 0 8px;font-size:18px">Các bản tin đã đăng</h2><div id="manage"></div></div>
+    </section>
+
+    <section id="v-users" hidden>
+      <form class="box" id="uf">
+        <h2 style="margin:0 0 4px;font-size:18px">Cấp tài khoản mới</h2>
+        <label for="un">Họ tên</label>
+        <input id="un" type="text" required>
+        <label for="ue">Tài khoản (email hoặc tên đăng nhập)</label>
+        <input id="ue" type="text" required autocomplete="off">
+        <p class="hint">Nếu nhập tên đăng nhập không có @, hệ thống tự thêm @donvi.local. Tài khoản email thật mới dùng được chức năng đặt lại mật khẩu.</p>
+        <label for="up">Mật khẩu (ít nhất 6 ký tự)</label>
+        <input id="up" type="text" minlength="6" required autocomplete="off">
+        <p class="err" id="uerr" role="alert"></p>
+        <button class="btn p" id="usave">Tạo tài khoản</button>
+      </form>
+      <div class="box"><h2 style="margin:0 0 8px;font-size:18px">Danh sách tài khoản</h2><div id="ulist"></div></div>
+    </section>
+  </main>
+</div>
+
+<div id="modal" hidden></div>
+<div id="toast" hidden role="status"></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getDatabase,ref,onValue,set,get,push,update,remove,query,orderByChild,limitToLast,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const cfg={
+  apiKey:"AIzaSyCo49A9AJbcft-0_pwsfDI_A69_RTwK_Dw",
+  authDomain:"thongtindonvi-daddd.firebaseapp.com",
+  databaseURL:"https://thongtindonvi-daddd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"thongtindonvi-daddd",
+  storageBucket:"thongtindonvi-daddd.firebasestorage.app",
+  messagingSenderId:"747692949919",
+  appId:"1:747692949919:web:5aa59db75d7a8378993daa"
+};
+const ADMIN_UID="jnKj9ipab3ej3FDXAMuaC82ZwJG2";
+const MAX_MB=25;              // dung lượng tối đa mỗi tệp (đổi tại đây)
+const CH=384*1024;            // kích thước mỗi mảnh tệp (byte)
+const DOMAIN="@donvi.local";
+
+const app=initializeApp(cfg), auth=getAuth(app), db=getDatabase(app);
+const sauth=getAuth(initializeApp(cfg,"sec")); // app phụ để tạo tài khoản mà admin không bị đăng xuất
+
+const $=s=>document.querySelector(s);
+const el=(t,p={},...k)=>{const e=document.createElement(t);for(const[a,v]of Object.entries(p)){if(a==="class")e.className=v;else if(a.startsWith("on"))e.addEventListener(a.slice(2),v);else e.setAttribute(a,v)}e.append(...k.filter(x=>x!=null&&x!==false));return e};
+const fmtSize=b=>b>=1048576?(b/1048576).toFixed(1)+" MB":Math.max(1,Math.ceil(b/1024))+" KB";
+const fmtDate=t=>t?new Date(t).toLocaleString("vi-VN",{dateStyle:"medium",timeStyle:"short"}):"";
+const okUrl=u=>/^https?:\/\//i.test(u);
+const fixImg=u=>{u=(u||"").trim();const m=u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?.*?id=)([\w-]+)/);return m?`https://drive.google.com/thumbnail?id=${m[1]}&sz=w1600`:u};
+const normEmail=s=>{s=s.trim().toLowerCase();return s.includes("@")?s:s+DOMAIN};
+const sleepToast=(()=>{let t;return m=>{const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(t);t=setTimeout(()=>e.hidden=true,3500)}})();
+const errMsg=e=>{const c=e&&(e.code||e.message)||"";
+  if(/invalid-credential|wrong-password|user-not-found|invalid-email/.test(c))return"Sai tài khoản hoặc mật khẩu.";
+  if(/email-already/.test(c))return"Tài khoản này đã tồn tại. Hãy mở khóa lại trong danh sách nếu cần.";
+  if(/weak-password/.test(c))return"Mật khẩu quá yếu (ít nhất 6 ký tự).";
+  if(/too-many/.test(c))return"Thử quá nhiều lần, vui lòng đợi vài phút.";
+  if(/network/.test(c))return"Mất kết nối mạng.";
+  if(/PERMISSION_DENIED|permission/i.test(c))return"Không đủ quyền truy cập (kiểm tra lại Rules hoặc trạng thái tài khoản).";
+  if(/operation-not-allowed/.test(c))return"Chưa bật đăng nhập Email/Password trong Firebase Authentication.";
+  return"Có lỗi: "+(e&&e.message||c)};
+
+let isAdmin=false,myName="",posts=[],users={},unsubs=[],editing=null,removed=new Set();
+
+/* ---------- Đăng nhập ---------- */
+$("#lf").addEventListener("submit",async e=>{
+  e.preventDefault();$("#lerr").textContent="";$("#lb").disabled=true;
+  try{await signInWithEmailAndPassword(auth,normEmail($("#le").value),$("#lp").value)}
+  catch(err){$("#lerr").textContent=errMsg(err)}
+  $("#lb").disabled=false;
+});
+$("#out").addEventListener("click",()=>signOut(auth));
+
+onAuthStateChanged(auth,async u=>{
+  unsubs.forEach(f=>f());unsubs=[];posts=[];users={};closeModal();
+  if(!u){$("#app").hidden=true;$("#login").hidden=false;$("#lp").value="";return}
+  isAdmin=u.uid===ADMIN_UID;
+  let prof=null;
+  try{prof=(await get(ref(db,"users/"+u.uid))).val()}catch(err){}
+  if(!isAdmin&&!(prof&&prof.active===true)){
+    await signOut(auth);
+    $("#lerr").textContent="Tài khoản đã bị khóa hoặc chưa được cấp quyền xem.";return;
+  }
+  myName=(prof&&prof.name)||(isAdmin?"Quản trị viên":u.email);
+  $("#who").textContent=myName;
+  document.querySelectorAll("[data-admin]").forEach(b=>b.hidden=!isAdmin);
+  $("#login").hidden=true;$("#app").hidden=false;show("feed");
+  unsubs.push(onValue(query(ref(db,"posts"),orderByChild("createdAt"),limitToLast(100)),s=>{
+    posts=[];s.forEach(c=>{posts.push({id:c.key,...c.val()})});posts.reverse();
+    renderFeed();renderManage();
+  },err=>sleepToast(errMsg(err))));
+  if(isAdmin)unsubs.push(onValue(ref(db,"users"),s=>{users=s.val()||{};renderUsers()},err=>sleepToast(errMsg(err))));
+});
+
+/* ---------- Điều hướng ---------- */
+function show(v){
+  ["feed","post","users"].forEach(n=>$("#v-"+n).hidden=n!==v);
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.v)));
+
+/* ---------- Bản tin (xem) ---------- */
+function imgEl(url,cls){
+  if(!url)return null;
+  const i=el("img",{src:url,alt:"",loading:"lazy",referrerpolicy:"no-referrer"});
+  if(cls)i.className=cls;i.addEventListener("error",()=>i.remove());return i;
+}
+function renderFeed(){
+  const q=$("#q").value.trim().toLowerCase();
+  const rows=posts.filter(p=>!q||(p.title+" "+(p.content||"")).toLowerCase().includes(q));
+  const list=$("#list");list.replaceChildren();
+  $("#feed-date").textContent=new Intl.DateTimeFormat("vi-VN",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"}).format(new Date());
+  $("#none").hidden=rows.length>0;
+  $("#none").textContent=q?"Không tìm thấy bản tin phù hợp.":"Chưa có bản tin nào.";
+  rows.forEach((p,index)=>{
+    const n=(p.files||[]).length;
+    const isLead=!q&&index===0&&!!p.imgUrl;
+    list.append(el("button",{class:"card"+(isLead?" lead":""),onclick:()=>openPost(p.id)},
+      imgEl(p.imgUrl),
+      el("div",{class:"b"},
+        el("h3",{},p.title),
+        el("div",{class:"meta"},fmtDate(p.createdAt)+(n?`  •  ${n} tệp đính kèm`:"")),
+        p.content?el("p",{},p.content):null)));
+  });
+  if(!$("#modal").hidden&&openId)openPost(openId,true);
+}
+$("#q").addEventListener("input",renderFeed);
+
+let openId=null;
+function openPost(id,keep){
+  const p=posts.find(x=>x.id===id);
+  if(!p){closeModal();return}
+  openId=id;const m=$("#modal");const top=m.scrollTop;
+  const files=(p.files||[]).map(f=>{
+    const b=el("button",{class:"btn s"},"Tải về");
+    b.addEventListener("click",()=>download(f,b));
+    return el("div",{class:"row"},el("span",{class:"t"},f.name+" ("+fmtSize(f.size)+")"),b);
+  });
+  const paragraphs=(p.content||"").split(/\n{2,}|\r\n\r\n/).filter(v=>v.trim()).map(v=>{
+    const lines=v.trim().split(/\n/);
+    return el("p",{},lines.join(" "));
+  });
+  const initials=(p.author||"Tin nội bộ").trim().split(/\s+/).slice(0,2).map(v=>v[0]||"").join("").toUpperCase();
+  const articleFiles=files.length?el("aside",{class:"article-files"},
+    el("h3",{},"Tài liệu đính kèm"),
+    ...files):null;
+  m.replaceChildren(el("article",{class:"article",role:"dialog","aria-modal":"true","aria-label":p.title},
+    el("div",{class:"article-progress"},el("i")),
+    el("button",{class:"btn s x","aria-label":"Đóng bài viết",onclick:closeModal},"Đóng"),
+    el("header",{class:"article-head"},
+      el("span",{class:"article-kicker"},"Tin nội bộ"),
+      el("h2",{},p.title),
+      el("div",{class:"article-byline"},
+        el("span",{class:"byline-avatar"},initials),
+        el("div",{},el("strong",{},p.author||"Ban biên tập"),el("br"),fmtDate(p.createdAt)+(p.updatedAt?" • Cập nhật "+fmtDate(p.updatedAt):"")))),
+    imgEl(p.imgUrl,"hero"),
+    el("div",{class:"article-body"},
+      el("div",{class:"content"},...paragraphs),
+      articleFiles)));
+  m.hidden=false;document.body.style.overflow="hidden";
+  if(!keep)m.scrollTop=0;else m.scrollTop=top;
+  const bar=m.querySelector(".article-progress i");
+  m.onscroll=()=>{const max=m.scrollHeight-m.clientHeight;bar.style.width=(max>0?Math.min(100,m.scrollTop/max*100):100)+"%"};
+}
+function closeModal(){openId=null;$("#modal").onscroll=null;$("#modal").hidden=true;document.body.style.overflow=""}
+$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+/* ---------- Tải / tải lên tệp (lưu theo mảnh trong Realtime Database) ---------- */
+async function download(f,btn){
+  const old=btn.textContent;btn.disabled=true;
+  try{
+    const parts=new Array(f.n);let next=0,done=0;
+    await Promise.all(Array.from({length:4},async()=>{
+      while(next<f.n){
+        const i=next++;
+        const v=(await get(ref(db,`chunks/${f.id}/${i}`))).val();
+        if(v==null)throw new Error("tệp bị thiếu dữ liệu");
+        parts[i]=await(await fetch("data:application/octet-stream;base64,"+v)).blob();
+        btn.textContent=Math.round(++done/f.n*100)+"%";
+      }}));
+    const url=URL.createObjectURL(new Blob(parts,{type:f.type||"application/octet-stream"}));
+    const a=el("a",{href:url,download:f.name});document.body.append(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+  }catch(e){sleepToast("Tải thất bại: "+errMsg(e))}
+  btn.disabled=false;btn.textContent=old;
+}
+const toB64=blob=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.slice(r.result.indexOf(",")+1));r.onerror=()=>rej(r.error);r.readAsDataURL(blob)});
+const delChunks=f=>remove(ref(db,"chunks/"+f.id)).catch(()=>{});
+async function upload(file,onp){
+  const id=push(ref(db,"chunks")).key,n=Math.ceil(file.size/CH);let next=0,done=0;
+  try{
+    await Promise.all(Array.from({length:3},async()=>{
+      while(next<n){
+        const i=next++;
+        await set(ref(db,`chunks/${id}/${i}`),await toB64(file.slice(i*CH,(i+1)*CH)));
+        onp(++done/n);
+      }}));
+  }catch(e){await delChunks({id});throw e}
+  return{id,name:file.name,size:file.size,type:file.type||"",n};
+}
+
+/* ---------- Quản lý bản tin (admin) ---------- */
+$("#maxmb").textContent=MAX_MB;
+$("#pi").addEventListener("input",()=>{
+  const u=fixImg($("#pi").value),p=$("#pprev");
+  p.hidden=!okUrl(u);if(okUrl(u))p.src=u;
+});
+$("#pprev").addEventListener("error",()=>$("#pprev").hidden=true);
+
+function renderOld(){
+  const box=$("#oldfiles");box.replaceChildren();
+  if(!editing)return;
+  (editing.files||[]).forEach(f=>{
+    const gone=removed.has(f.id);
+    box.append(el("div",{class:"row"},
+      el("span",{class:"t",style:gone?"text-decoration:line-through;opacity:.6":""},f.name+" ("+fmtSize(f.size)+")"),
+      el("button",{class:"btn s"+(gone?"":" d"),type:"button",onclick:()=>{gone?removed.delete(f.id):removed.add(f.id);renderOld()}},gone?"Giữ lại":"Xóa tệp")));
+  });
+}
+function resetForm(){
+  editing=null;removed=new Set();$("#pf").reset();$("#pprev").hidden=true;$("#bar").hidden=true;
+  $("#pft").textContent="Đăng bản tin mới";$("#psave").textContent="Đăng bản tin";$("#pcancel").hidden=true;$("#perr").textContent="";renderOld();
+}
+$("#pcancel").addEventListener("click",resetForm);
+
+function renderManage(){
+  const box=$("#manage");box.replaceChildren();
+  if(!posts.length){box.append(el("p",{class:"empty"},"Chưa có bản tin nào."));return}
+  posts.forEach(p=>box.append(el("div",{class:"row"},
+    el("div",{class:"t"},el("b",{},p.title),el("div",{class:"meta"},fmtDate(p.createdAt)+" • "+(p.files||[]).length+" tệp")),
+    el("button",{class:"btn s",onclick:()=>startEdit(p)},"Sửa"),
+    el("button",{class:"btn s d",onclick:()=>delPost(p)},"Xóa"))));
+}
+function startEdit(p){
+  editing=p;removed=new Set();
+  $("#pt").value=p.title;$("#pi").value=p.imgUrl||"";$("#pc").value=p.content||"";$("#pi").dispatchEvent(new Event("input"));
+  $("#pft").textContent="Sửa bản tin";$("#psave").textContent="Lưu thay đổi";$("#pcancel").hidden=false;
+  renderOld();show("post");window.scrollTo({top:0});
+}
+async function delPost(p){
+  if(!confirm(`Xóa bản tin “${p.title}” cùng các tệp đính kèm?`))return;
+  try{await remove(ref(db,"posts/"+p.id));await Promise.all((p.files||[]).map(delChunks));if(editing&&editing.id===p.id)resetForm();sleepToast("Đã xóa bản tin.")}
+  catch(e){sleepToast(errMsg(e))}
+}
+$("#pf").addEventListener("submit",async e=>{
+  e.preventDefault();const perr=$("#perr");perr.textContent="";
+  const title=$("#pt").value.trim(),content=$("#pc").value.trim(),img=fixImg($("#pi").value);
+  if(img&&!okUrl(img)){perr.textContent="Link ảnh phải bắt đầu bằng http:// hoặc https://";return}
+  const files=[...$("#pfile").files];
+  for(const f of files){
+    if(f.size===0){perr.textContent=`Tệp “${f.name}” trống.`;return}
+    if(f.size>MAX_MB*1048576){perr.textContent=`Tệp “${f.name}” vượt quá ${MAX_MB} MB.`;return}
+  }
+  const btn=$("#psave"),bar=$("#bar"),fill=bar.firstElementChild;
+  btn.disabled=true;bar.hidden=!files.length;fill.style.width="0";
+  const up=[];
+  try{
+    for(let k=0;k<files.length;k++){
+      btn.textContent=`Đang tải tệp ${k+1}/${files.length}…`;
+      up.push(await upload(files[k],r=>fill.style.width=((k+r)/files.length*100)+"%"));
+    }
+    const keep=editing?(editing.files||[]).filter(f=>!removed.has(f.id)):[];
+    const data={title,content,imgUrl:img||null,files:[...keep,...up],author:myName};
+    if(editing){
+      await update(ref(db,"posts/"+editing.id),{...data,updatedAt:serverTimestamp()});
+      await Promise.all((editing.files||[]).filter(f=>removed.has(f.id)).map(delChunks));
+    }else{
+      await set(push(ref(db,"posts")),{...data,createdAt:serverTimestamp()});
+    }
+    sleepToast(editing?"Đã lưu thay đổi.":"Đã đăng bản tin.");resetForm();
+  }catch(err){
+    await Promise.all(up.map(delChunks));
+    perr.textContent=errMsg(err);btn.textContent=editing?"Lưu thay đổi":"Đăng bản tin";bar.hidden=true;
+  }
+  btn.disabled=false;
+});
+
+/* ---------- Tài khoản (admin) ---------- */
+function renderUsers(){
+  const box=$("#ulist");box.replaceChildren();
+  const rows=Object.entries(users).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+  if(!rows.length){box.append(el("p",{class:"empty"},"Chưa cấp tài khoản nào."));return}
+  rows.forEach(([uid,u])=>{
+    const on=u.active===true;
+    box.append(el("div",{class:"row"},
+      el("div",{class:"t"},el("b",{},u.name||"(chưa đặt tên)"),el("div",{class:"meta"},u.email)),
+      el("span",{class:"tag"+(on?"":" off")},on?"Đang hoạt động":"Đã khóa"),
+      el("button",{class:"btn s"+(on?" d":""),onclick:()=>update(ref(db,"users/"+uid),{active:!on}).then(()=>sleepToast(on?"Đã khóa tài khoản.":"Đã mở khóa.")).catch(e=>sleepToast(errMsg(e)))},on?"Khóa":"Mở khóa"),
+      u.email&&!u.email.endsWith(DOMAIN)?el("button",{class:"btn s",onclick:()=>sendPasswordResetEmail(auth,u.email).then(()=>sleepToast("Đã gửi email đặt lại mật khẩu.")).catch(e=>sleepToast(errMsg(e)))},"Gửi mail đặt lại MK"):null));
+  });
+}
+$("#uf").addEventListener("submit",async e=>{
+  e.preventDefault();const uerr=$("#uerr");uerr.textContent="";$("#usave").disabled=true;
+  const email=normEmail($("#ue").value),name=$("#un").value.trim(),pw=$("#up").value;
+  try{
+    const c=await createUserWithEmailAndPassword(sauth,email,pw);
+    try{await set(ref(db,"users/"+c.user.uid),{email,name,active:true,createdAt:serverTimestamp()})}
+    finally{await signOut(sauth)}
+    sleepToast("Đã tạo tài khoản "+email);$("#uf").reset();
+  }catch(err){uerr.textContent=errMsg(err);try{await signOut(sauth)}catch(_){}}
+  $("#usave").disabled=false;
+});
+</script>
+</body>
+</html>

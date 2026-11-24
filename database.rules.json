@@ -1,0 +1,40 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null && auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2'",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2')",
+        ".write": "auth != null && auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2'",
+        ".validate": "newData.hasChildren(['email', 'active'])"
+      }
+    },
+    "posts": {
+      ".indexOn": [
+        "createdAt"
+      ],
+      ".read": "auth != null && (auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2' || root.child('users').child(auth.uid).child('active').val() === true)",
+      "$pid": {
+        ".write": "auth != null && auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2'",
+        ".validate": "newData.hasChildren(['title', 'createdAt'])",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 200"
+        },
+        "content": {
+          ".validate": "newData.isString() && newData.val().length <= 20000"
+        },
+        "imgUrl": {
+          ".validate": "newData.isString() && newData.val().length <= 1000"
+        }
+      }
+    },
+    "chunks": {
+      ".read": "auth != null && (auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2' || root.child('users').child(auth.uid).child('active').val() === true)",
+      "$fid": {
+        "$n": {
+          ".write": "auth != null && auth.uid === 'jnKj9ipab3ej3FDXAMuaC82ZwJG2'",
+          ".validate": "newData.isString() && newData.val().length <= 600000"
+        }
+      }
+    }
+  }
+}
